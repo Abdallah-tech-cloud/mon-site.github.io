@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mohamed Djafar — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0d14;
+    --card: #16162a;
+    --card2: #1e1e35;
+    --purple: #a855f7;
+    --pink: #ec4899;
+    --cyan: #22d3ee;
+    --yellow: #fbbf24;
+    --green: #34d399;
+    --text: #f1f0ff;
+    --muted: #8b87b0;
+    --border: rgba(168,85,247,0.15);
+    --grad: linear-gradient(135deg, #a855f7, #ec4899);
+    --grad2: linear-gradient(135deg, #22d3ee, #a855f7);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* BG blobs */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -200px; left: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(168,85,247,0.12) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  body::after {
+    content: '';
+    position: fixed;
+    bottom: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(34,211,238,0.08) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  section, nav, footer { position: relative; z-index: 1; }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: rgba(13,13,20,0.8);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Sora', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--purple); }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 7rem 2rem 4rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--purple);
+    background: rgba(168,85,247,0.12);
+    border: 1px solid rgba(168,85,247,0.3);
+    padding: 6px 16px;
+    border-radius: 999px;
+    margin-bottom: 2rem;
+  }
+
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--green);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%,100% { opacity:1; transform:scale(1); }
+    50% { opacity:0.4; transform:scale(0.7); }
+  }
+
+  h1 {
+    font-family: 'Sora', sans-serif;
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 1.2rem;
+    letter-spacing: -0.02em;
+  }
+
+  h1 .grad {
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero-sub {
+    font-size: 18px;
+    color: var(--muted);
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+
+  .hero-sub span { color: var(--cyan); }
+
+  .hero-desc {
+    font-size: 16px;
+    color: var(--muted);
+    max-width: 540px;
+    margin-bottom: 2.5rem;
+    line-height: 1.9;
+  }
+  .hero-desc strong { color: var(--text); }
+
+  .ctas { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 4rem; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 28px;
+    border-radius: 999px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    text-decoration: none;
+    transition: all 0.25s;
+  }
+
+  .btn-primary {
+    background: var(--grad);
+    color: #fff;
+    box-shadow: 0 4px 20px rgba(168,85,247,0.3);
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(168,85,247,0.45); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--text);
+    border: 2px solid rgba(255,255,255,0.12);
+  }
+  .btn-ghost:hover { border-color: var(--purple); color: var(--purple); transform: translateY(-3px); }
+
+  .stats {
+    display: flex;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .stat-num {
+    font-family: 'Sora', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* SECTIONS */
+  .wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+  }
+
+  .sec-header {
+    margin-bottom: 3rem;
+  }
+
+  .sec-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--purple);
+    background: rgba(168,85,247,0.1);
+    padding: 4px 12px;
+    border-radius: 999px;
+    margin-bottom: 0.8rem;
+  }
+
+  .sec-title {
+    font-family: 'Sora', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  .about-text p {
+    color: var(--muted);
+    margin-bottom: 1.2rem;
+    line-height: 1.9;
+  }
+  .about-text p strong { color: var(--text); }
+
+  .quote {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, rgba(168,85,247,0.08), rgba(236,72,153,0.06));
+    border-radius: 16px;
+    border: 1px solid rgba(168,85,247,0.2);
+  }
+  .quote p {
+    font-style: italic;
+    font-size: 16px;
+    color: var(--text) !important;
+    margin-bottom: 0.5rem !important;
+  }
+  .quote cite { font-size: 12px; font-weight: 700; color: var(--purple); }
+
+  .info-list { display: flex; flex-direction: column; gap: 0.8rem; }
+
+  .info-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.2rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    transition: all 0.2s;
+  }
+  .info-item:hover { border-color: rgba(168,85,247,0.4); transform: translateX(5px); }
+
+  .info-emoji { font-size: 22px; }
+  .info-lbl { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
+  .info-val { font-size: 14px; font-weight: 700; color: var(--text); }
+
+  /* SUBJECTS */
+  #matieres { background: rgba(22,22,42,0.4); }
+
+  .subjects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
+  }
+
+  .subj-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 1.5rem;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .subj-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--grad);
+    border-radius: 20px 20px 0 0;
+    transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+  .subj-card:hover { transform: translateY(-5px); border-color: rgba(168,85,247,0.4); }
+  .subj-card:hover::after { transform: scaleX(1); }
+
+  .subj-emoji { font-size: 28px; margin-bottom: 0.8rem; display: block; }
+  .subj-name { font-size: 15px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+  .subj-desc { font-size: 12px; color: var(--muted); margin-bottom: 1rem; line-height: 1.5; }
+
+  .bar-wrap { display: flex; align-items: center; gap: 10px; }
+  .bar { flex: 1; height: 4px; background: rgba(255,255,255,0.07); border-radius: 4px; overflow: hidden; }
+  .bar-fill {
+    height: 100%;
+    background: var(--grad);
+    border-radius: 4px;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);
+  }
+  .bar-fill.on { transform: scaleX(1); }
+  .bar-pct { font-size: 12px; font-weight: 800; color: var(--purple); min-width: 32px; text-align: right; }
+
+  /* HOBBIES */
+  .hobbies-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+
+  .hobby-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 1.4rem 1rem;
+    text-align: center;
+    transition: all 0.3s;
+    cursor: default;
+  }
+  .hobby-card:hover {
+    background: var(--card2);
+    border-color: rgba(34,211,238,0.4);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+  }
+  .hobby-emoji { font-size: 30px; display: block; margin-bottom: 0.7rem; }
+  .hobby-name { font-size: 13px; font-weight: 800; color: var(--text); margin-bottom: 5px; }
+  .hobby-desc { font-size: 11px; color: var(--muted); line-height: 1.4; }
+
+  /* TIMELINE */
+  #objectifs { background: rgba(22,22,42,0.4); }
+
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0; width: 2px;
+    background: linear-gradient(to bottom, var(--purple), var(--pink), transparent);
+    border-radius: 2px;
+  }
+
+  .tl-item {
+    position: relative;
+    padding-left: 2rem;
+    padding-bottom: 2.5rem;
+  }
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -2.45rem; top: 5px;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--purple);
+    box-shadow: 0 0 0 4px rgba(168,85,247,0.15);
+  }
+
+  .tl-year {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--purple);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .tl-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .tl-desc { font-size: 14px; color: var(--muted); line-height: 1.8; max-width: 550px; }
+
+  /* CONTACT */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .contact-left p { color: var(--muted); font-size: 15px; line-height: 1.9; margin-bottom: 1.8rem; }
+
+  .contact-details { display: flex; flex-direction: column; gap: 0.8rem; }
+
+  .c-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.9rem 1.2rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+  .c-emoji { font-size: 18px; }
+  .c-lbl { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
+  .c-val { font-size: 13px; font-weight: 700; color: var(--text); }
+
+  /* FORM */
+  .form { display: flex; flex-direction: column; gap: 1rem; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  .fg { display: flex; flex-direction: column; gap: 6px; }
+
+  .fg label {
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+
+  .fg input, .fg textarea {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 11px 16px;
+    color: var(--text);
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    outline: none;
+    transition: border-color 0.2s;
+    resize: vertical;
+  }
+  .fg input:focus, .fg textarea:focus {
+    border-color: var(--purple);
+    box-shadow: 0 0 0 3px rgba(168,85,247,0.12);
+  }
+  .fg input::placeholder, .fg textarea::placeholder { color: rgba(139,135,176,0.5); }
+
+  .btn-send {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: var(--grad);
+    color: #fff;
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+  .btn-send:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(168,85,247,0.35); }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 2.5rem 2rem;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--muted);
+  }
+  footer span { color: var(--purple); }
+
+  /* REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.on { opacity: 1; transform: translateY(0); }
+
+  /* MOBILE */
+  @media (max-width: 700px) {
+    .nav-links { display: none; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; }
+    .subjects-grid { grid-template-columns: 1fr; }
+    .hobbies-grid { grid-template-columns: repeat(2, 1fr); }
+    .form-row { grid-template-columns: 1fr; }
+    h1 { font-size: 2.4rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">MDA Sall ✦</div>
+  <ul class="nav-links">
+    <li><a href="#about">À propos</a></li>
+    <li><a href="#matieres">Matières</a></li>
+    <li><a href="#loisirs">Loisirs</a></li>
+    <li><a href="#objectifs">Objectifs</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div id="hero">
+  <div class="badge"><div class="dot"></div> Élève · Lycée Galandou Diouf · Dakar 🇸🇳</div>
+  <h1>Mohamed Djafar<br><span class="grad">Abdalla Sall</span></h1>
+  <p class="hero-sub">Élève en <span>Seconde S</span> · Passionné de Sciences 🔬</p>
+  <p class="hero-desc">
+    Curieux, ambitieux et motivé. Chaque jour est une occasion d'apprendre quelque chose de nouveau.
+    Mon rêve ? Contribuer au <strong>développement scientifique de l'Afrique</strong>.
+  </p>
+  <div class="ctas">
+    <a href="#about" class="btn btn-primary">Découvrir mon profil →</a>
+    <a href="#contact" class="btn btn-ghost">✉ Me contacter</a>
+  </div>
+  <div class="stats">
+    <div><div class="stat-num">16</div><div class="stat-label">Ans</div></div>
+    <div><div class="stat-num">2nde S</div><div class="stat-label">Classe</div></div>
+    <div><div class="stat-num">8+</div><div class="stat-label">Matières</div></div>
+    <div><div class="stat-num">∞</div><div class="stat-label">Ambition</div></div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="sec-header reveal">
+      <div class="sec-tag">// 01 — Qui suis-je ?</div>
+      <h2 class="sec-title">À propos de moi</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>Je m'appelle <strong>Mohamed Djafar Abdalla Sall</strong>, j'ai <strong>16 ans</strong> et je suis élève en <strong>Seconde S</strong> au Lycée Galandou Diouf de Dakar.</p>
+        <p>Passionné par les sciences, les maths et l'informatique, je m'investis chaque jour pour atteindre mes ambitions. Né et grandi à Dakar, je suis fier de ma culture sénégalaise.</p>
+        <p>Mon objectif à long terme : <strong>intégrer une grande école</strong> dans les domaines de l'ingénierie ou de l'informatique, et contribuer à l'essor de l'Afrique.</p>
+        <div class="quote">
+          <p>"L'éducation est l'arme la plus puissante que vous pouvez utiliser pour changer le monde."</p>
+          <cite>— Nelson Mandela</cite>
+        </div>
+      </div>
+      <div class="info-list reveal">
+        <div class="info-item"><div class="info-emoji">🏫</div><div><div class="info-lbl">Établissement</div><div class="info-val">Lycée Galandou Diouf</div></div></div>
+        <div class="info-item"><div class="info-emoji">📚</div><div><div class="info-lbl">Classe</div><div class="info-val">Seconde S — 2025/2026</div></div></div>
+        <div class="info-item"><div class="info-emoji">📍</div><div><div class="info-lbl">Localisation</div><div class="info-val">Dakar, Sénégal 🇸🇳</div></div></div>
+        <div class="info-item"><div class="info-emoji">🎂</div><div><div class="info-lbl">Âge</div><div class="info-val">16 ans</div></div></div>
+        <div class="info-item"><div class="info-emoji">🔬</div><div><div class="info-lbl">Passion principale</div><div class="info-val">Sciences & Informatique</div></div></div>
+        <div class="info-item"><div class="info-emoji">🌍</div><div><div class="info-lbl">Ambition</div><div class="info-val">Ingénierie / Informatique</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUBJECTS -->
+<section id="matieres">
+  <div class="wrap">
+    <div class="sec-header reveal">
+      <div class="sec-tag">// 02 — Ce que j'apprends</div>
+      <h2 class="sec-title">Mes matières</h2>
+    </div>
+    <div class="subjects-grid">
+      <div class="subj-card reveal" style="transition-delay:0s">
+        <span class="subj-emoji">➗</span>
+        <div class="subj-name">Mathématiques</div>
+        <div class="subj-desc">Algèbre, géométrie, fonctions et trigonométrie. Ma matière préférée !</div>
+        <div class="bar-wrap"><div class="bar"><div class="bar-fill" style="width:90%"></div></div><div class="bar-pct">90%</div></div>
+      </div>
+      <div class="subj-card reveal" style="transition-delay:0.1s">
+        <span class="subj-emoji">⚗️</span>
+        <div class="subj-name">Physique-Chimie</div>
+        <div class="subj-desc">Mécanique, électricité, réactions chimiques et labo.</div>
+        <div class="bar-wrap"><div class="bar"><div class="bar-fill" style="width:80%"></div></div><div class="bar-pct">80%</div></div>
+      </div>
+      <div class="subj-card reveal" style="transition-delay:0.15s">
+        <span class="subj-emoji">🧬</span>
+        <div class="subj-name">S.V.T</div>
+        <div class="subj-desc">Biologie, géologie, écosystèmes et cellules vivantes.</div>
+        <div class="bar-wrap"><div class="bar"><div class="bar-fill" style="width:75%"></div></div><div class="bar-pct">75%</div></div>
+      </div>
+      <div class="subj-card reveal" style="transition-delay:0.2s">
+        <span class="subj-emoji">📖</span>
+        <div class="subj-name">Français</div>
+        <div class="subj-desc">Littérature, dissertation et commentaires de textes.</div>
+        <div class="bar-wrap"><div class="bar"><div class="bar-fill" style="width:70%"></div></div><div class="bar-pct">70%</div></div>
+      </div>
+      <div class="subj-card reveal" style="transition-delay:0.25s">
+        <span class="subj-emoji">🌍</span>
+        <div class="subj-name">Histoire-Géographie</div>
+        <div class="subj-desc">Histoire du monde et de l'Afrique, géopolitique.</div>
+        <div class="bar-wrap"><div class="bar"><div class="bar-fill" style="width:72%"></div></div><div class="bar-pct">72%</div></div>
+      </div>
+      <div class="subj-card reveal" style="transition-delay:0.3s">
+        <span class="subj-emoji">🗣️</span>
+        <div class="subj-name">Anglais</div>
+        <div class="subj-desc">Expression orale et compréhension écrite.</div>
+        <div class="bar-wrap"><div class="bar"><div class="bar-fill" style="width:68%"></div></div><div class="bar-pct">68%</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOBBIES -->
+<section id="loisirs">
+  <div class="wrap">
+    <div class="sec-header reveal">
+      <div class="sec-tag">// 03 — Ce que j'aime</div>
+      <h2 class="sec-title">Loisirs & Passions</h2>
+    </div>
+    <div class="hobbies-grid">
+      <div class="hobby-card reveal" style="transition-delay:0s"><span class="hobby-emoji">🏀</span><div class="hobby-name">Basket-ball</div><div class="hobby-desc">Équipe et persévérance.</div></div>
+      <div class="hobby-card reveal" style="transition-delay:0.07s"><span class="hobby-emoji">💻</span><div class="hobby-name">Informatique</div><div class="hobby-desc">Code et exploration numérique.</div></div>
+      <div class="hobby-card reveal" style="transition-delay:0.14s"><span class="hobby-emoji">📚</span><div class="hobby-name">Lecture</div><div class="hobby-desc">Romans, sciences et biographies.</div></div>
+      <div class="hobby-card reveal" style="transition-delay:0.21s"><span class="hobby-emoji">🎵</span><div class="hobby-name">Musique</div><div class="hobby-desc">Mbalax, afrobeat, Galsen.</div></div>
+      <div class="hobby-card reveal" style="transition-delay:0.28s"><span class="hobby-emoji">🎨</span><div class="hobby-name">Dessin</div><div class="hobby-desc">Créativité et expression.</div></div>
+      <div class="hobby-card reveal" style="transition-delay:0.35s"><span class="hobby-emoji">🌐</span><div class="hobby-name">Géopolitique</div><div class="hobby-desc">Comprendre le monde.</div></div>
+      <div class="hobby-card reveal" style="transition-delay:0.42s"><span class="hobby-emoji">🏃</span><div class="hobby-name">Sport & Santé</div><div class="hobby-desc">Course et bien-être.</div></div>
+      <div class="hobby-card reveal" style="transition-delay:0.49s"><span class="hobby-emoji">🔭</span><div class="hobby-name">Astronomie</div><div class="hobby-desc">Observer l'univers.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- OBJECTIFS -->
+<section id="objectifs">
+  <div class="wrap">
+    <div class="sec-header reveal">
+      <div class="sec-tag">// 04 — Où je veux aller</div>
+      <h2 class="sec-title">Mes objectifs</h2>
+    </div>
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="tl-year">2025</div>
+        <div class="tl-title">Réussir brillamment ma Seconde S</div>
+        <p class="tl-desc">Obtenir d'excellentes notes en maths et physique pour passer en Première S sans problème.</p>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-year">2026</div>
+        <div class="tl-title">Décrocher le Baccalauréat S</div>
+        <p class="tl-desc">Terminer le lycée avec mention et ouvrir les portes des meilleures formations.</p>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-year">2027</div>
+        <div class="tl-title">Intégrer une grande école</div>
+        <p class="tl-desc">UCAD, ESP ou à l'international — en ingénierie, informatique ou sciences appliquées.</p>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-year">2030+</div>
+        <div class="tl-title">Contribuer au développement de l'Afrique 🌍</div>
+        <p class="tl-desc">Mettre mes compétences au service de l'innovation africaine et de l'émergence du Sénégal.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="sec-header reveal">
+      <div class="sec-tag">// 05 — Restons connectés</div>
+      <h2 class="sec-title">Me contacter</h2>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-left reveal">
+        <p>Tu veux échanger sur les sciences, collaborer sur un projet ou juste dire bonjour ? N'hésite pas !</p>
+        <div class="contact-details">
+          <div class="c-item"><div class="c-emoji">🏫</div><div><div class="c-lbl">Établissement</div><div class="c-val">Lycée Galandou Diouf, Dakar</div></div></div>
+          <div class="c-item"><div class="c-emoji">📚</div><div><div class="c-lbl">Classe</div><div class="c-val">Seconde S — 2025/2026</div></div></div>
+          <div class="c-item"><div class="c-emoji">📍</div><div><div class="c-lbl">Localisation</div><div class="c-val">Dakar, Sénégal 🇸🇳</div></div></div>
+          <div class="c-item"><div class="c-emoji">✉️</div><div><div class="c-lbl">Email</div><div class="c-val">sallmohamedadjafarabdalla@gmail.com</div></div></div>
+        </div>
+      </div>
+      <form class="form reveal" action="mailto:sallmohamedadjafarabdalla@gmail.com" method="get" enctype="text/plain">
+        <div class="form-row">
+          <div class="fg"><label>Ton nom</label><input type="text" name="name" placeholder="Fatou Diallo" required></div>
+          <div class="fg"><label>Ton email</label><input type="email" name="email" placeholder="exemple@email.com" required></div>
+        </div>
+        <div class="fg"><label>Sujet</label><input type="text" name="subject" placeholder="Projet scolaire, échange…" required></div>
+        <div class="fg"><label>Message</label><textarea name="body" rows="4" placeholder="Ton message ici…" required></textarea></div>
+        <button type="submit" class="btn-send">Envoyer le message →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Fait avec ❤️ depuis <span>Dakar, Sénégal 🇸🇳</span> — Lycée Galandou Diouf</p>
+  <p style="margin-top:6px; opacity:0.4; font-size:12px;">© 2025 Mohamed Djafar Abdalla Sall</p>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('on');
+      e.target.querySelectorAll('.bar-fill').forEach(b => b.classList.add('on'));
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+const barObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); });
+}, { threshold: 0.3 });
+document.querySelectorAll('.bar-fill').forEach(b => barObs.observe(b));
+</script>
+
+</body>
+</html>
