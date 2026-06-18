@@ -1,0 +1,1773 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Portfolio MDJAS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Nunito:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+ <style>
+  :root {
+    --bg: #0d0d14;
+    --card: #16162a;
+    --card2: #1e1e35;
+    --purple: #a855f7;
+    --pink: #ec4899;
+    --cyan: #22d3ee;
+    --yellow: #fbbf24;
+    --green: #34d399;
+    --red: #ff5252;
+    --text: #f1f0ff;
+    --text-muted: #8b87b0;
+    --muted: #8b87b0;
+    --border: rgba(168,85,247,0.15);
+    --grad: linear-gradient(135deg, #a855f7, #ec4899);
+    --grad2: linear-gradient(135deg, #22d3ee, #a855f7);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* BG blobs */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -200px; left: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(168,85,247,0.12) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  body::after {
+    content: '';
+    position: fixed;
+    bottom: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(34,211,238,0.08) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  section, nav, footer { position: relative; z-index: 1; }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: rgba(13,13,20,0.8);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Sora', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--purple); }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 7rem 2rem 4rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--purple);
+    background: rgba(168,85,247,0.12);
+    border: 1px solid rgba(168,85,247,0.3);
+    padding: 6px 16px;
+    border-radius: 999px;
+    margin-bottom: 2rem;
+  }
+
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--green);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%,100% { opacity:1; transform:scale(1); }
+    50% { opacity:0.4; transform:scale(0.7); }
+  }
+
+  h1 {
+    font-family: 'Sora', sans-serif;
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 1.2rem;
+    letter-spacing: -0.02em;
+  }
+
+  h1 .grad {
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero-sub {
+    font-size: 18px;
+    color: var(--muted);
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+
+  .hero-sub span { color: var(--cyan); }
+
+  .hero-desc {
+    font-size: 16px;
+    color: var(--muted);
+    max-width: 540px;
+    margin-bottom: 2.5rem;
+    line-height: 1.9;
+  }
+  .hero-desc strong { color: var(--text); }
+
+  .ctas { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 4rem; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 28px;
+    border-radius: 999px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    text-decoration: none;
+    transition: all 0.25s;
+  }
+
+  .btn-primary {
+    background: var(--grad);
+    color: #fff;
+    box-shadow: 0 4px 20px rgba(168,85,247,0.3);
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(168,85,247,0.45); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--text);
+    border: 2px solid rgba(255,255,255,0.12);
+  }
+  .btn-ghost:hover { border-color: var(--purple); color: var(--purple); transform: translateY(-3px); }
+
+  .stats {
+    display: flex;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .stat-num {
+    font-family: 'Sora', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* SECTIONS */
+  .wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+  }
+
+  .sec-header {
+    margin-bottom: 3rem;
+  }
+
+  .sec-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--purple);
+    background: rgba(168,85,247,0.1);
+    padding: 4px 12px;
+    border-radius: 999px;
+    margin-bottom: 0.8rem;
+  }
+
+  .sec-title {
+    font-family: 'Sora', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  .about-text p {
+    color: var(--muted);
+    margin-bottom: 1.2rem;
+    line-height: 1.9;
+  }
+  .about-text p strong { color: var(--text); }
+
+  .quote {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, rgba(168,85,247,0.08), rgba(236,72,153,0.06));
+    border-radius: 16px;
+    border: 1px solid rgba(168,85,247,0.2);
+  }
+  .quote p {
+    font-style: italic;
+    font-size: 16px;
+    color: var(--text) !important;
+    margin-bottom: 0.5rem !important;
+  }
+  .quote cite { font-size: 12px; font-weight: 700; color: var(--purple); }
+
+  .info-list { display: flex; flex-direction: column; gap: 0.8rem; }
+
+  .info-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.2rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    transition: all 0.2s;
+  }
+  .info-item:hover { border-color: rgba(168,85,247,0.4); transform: translateX(5px); }
+
+  .info-emoji { font-size: 22px; }
+  .info-lbl { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
+  .info-val { font-size: 14px; font-weight: 700; color: var(--text); }
+
+  /* SUBJECTS */
+  #matieres { background: rgba(22,22,42,0.4); }
+
+  .subjects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
+  }
+
+  .subj-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 1.5rem;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .subj-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--grad);
+    border-radius: 20px 20px 0 0;
+    transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+  .subj-card:hover { transform: translateY(-5px); border-color: rgba(168,85,247,0.4); }
+  .subj-card:hover::after { transform: scaleX(1); }
+
+  .subj-emoji { font-size: 28px; margin-bottom: 0.8rem; display: block; }
+  .subj-name { font-size: 15px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+  .subj-desc { font-size: 12px; color: var(--muted); margin-bottom: 1rem; line-height: 1.5; }
+
+  .bar-wrap { display: flex; align-items: center; gap: 10px; }
+  .bar { flex: 1; height: 4px; background: rgba(255,255,255,0.07); border-radius: 4px; overflow: hidden; }
+  .bar-fill {
+    height: 100%;
+    background: var(--grad);
+    border-radius: 4px;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);
+  }
+  .bar-fill.on { transform: scaleX(1); }
+  .bar-pct { font-size: 12px; font-weight: 800; color: var(--purple); min-width: 32px; text-align: right; }
+
+  /* HOBBIES */
+  .hobbies-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+
+  .hobby-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 1.4rem 1rem;
+    text-align: center;
+    transition: all 0.3s;
+    cursor: default;
+  }
+  .hobby-card:hover {
+    background: var(--card2);
+    border-color: rgba(34,211,238,0.4);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+  }
+  .hobby-emoji { font-size: 30px; display: block; margin-bottom: 0.7rem; }
+  .hobby-name { font-size: 13px; font-weight: 800; color: var(--text); margin-bottom: 5px; }
+  .hobby-desc { font-size: 11px; color: var(--muted); line-height: 1.4; }
+
+  /* TIMELINE */
+  #objectifs { background: rgba(22,22,42,0.4); }
+
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0; width: 2px;
+    background: linear-gradient(to bottom, var(--purple), var(--pink), transparent);
+    border-radius: 2px;
+  }
+
+  .tl-item {
+    position: relative;
+    padding-left: 2rem;
+    padding-bottom: 2.5rem;
+  }
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -2.45rem; top: 5px;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--purple);
+    box-shadow: 0 0 0 4px rgba(168,85,247,0.15);
+  }
+
+  .tl-year {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--purple);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .tl-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .tl-desc { font-size: 14px; color: var(--muted); line-height: 1.8; max-width: 550px; }
+
+  /* CONTACT */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .contact-left p { color: var(--muted); font-size: 15px; line-height: 1.9; margin-bottom: 1.8rem; }
+
+  .contact-details { display: flex; flex-direction: column; gap: 0.8rem; }
+
+  .c-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.9rem 1.2rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+  .c-emoji { font-size: 18px; }
+  .c-lbl { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
+  .c-val { font-size: 13px; font-weight: 700; color: var(--text); }
+
+  /* FORM */
+  .form { display: flex; flex-direction: column; gap: 1rem; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  .fg { display: flex; flex-direction: column; gap: 6px; }
+
+  .fg label {
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+
+  .fg input, .fg textarea {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 11px 16px;
+    color: var(--text);
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    outline: none;
+    transition: border-color 0.2s;
+    resize: vertical;
+  }
+  .fg input:focus, .fg textarea:focus {
+    border-color: var(--purple);
+    box-shadow: 0 0 0 3px rgba(168,85,247,0.12);
+  }
+  .fg input::placeholder, .fg textarea::placeholder { color: rgba(139,135,176,0.5); }
+
+  .btn-send {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: var(--grad);
+    color: #fff;
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+  .btn-send:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(168,85,247,0.35); }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 2.5rem 2rem;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--muted);
+  }
+  footer span { color: var(--purple); }
+
+  /* REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.on { opacity: 1; transform: translateY(0); }
+
+  /* MOBILE (site public) */
+  @media (max-width: 700px) {
+    .nav-links { display: none; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; }
+    .subjects-grid { grid-template-columns: 1fr; }
+    .hobbies-grid { grid-template-columns: repeat(2, 1fr); }
+    .form-row { grid-template-columns: 1fr; }
+    h1 { font-size: 2.4rem; }
+  }
+
+  /* ════════════════════════════════════
+     LOGIN SCREEN (écran de mot de passe admin)
+  ═══════════════════════════════════════ */
+  #login-screen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  .login-card {
+    width: 100%;
+    max-width: 420px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 2.5rem 2.2rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+  }
+
+  .login-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--grad);
+  }
+
+  .login-head {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .login-icon {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 1.2rem;
+    border-radius: 16px;
+    background: var(--grad);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    box-shadow: 0 8px 24px rgba(168,85,247,0.3);
+  }
+
+  .login-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+    letter-spacing: -0.02em;
+  }
+
+  .login-sub {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 600;
+  }
+
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+  }
+
+  .login-form .fg input { width: 100%; padding: 12px 16px; }
+
+  .login-err {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--red);
+    min-height: 18px;
+    text-align: center;
+  }
+
+  /* ════════════════════════════════════
+     APP SHELL (sidebar + main)
+  ═══════════════════════════════════════ */
+  #app {
+    display: none;
+    min-height: 100vh;
+  }
+
+  .sidebar {
+    width: 260px;
+    flex-shrink: 0;
+    background: rgba(13,13,20,0.92);
+    border-right: 1px solid var(--border);
+    backdrop-filter: blur(16px);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    z-index: 50;
+    overflow-y: auto;
+  }
+
+  .sidebar-brand {
+    padding: 1.6rem 1.4rem 1.2rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sidebar-brand-top {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--purple);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+  }
+
+  .sidebar-brand-name {
+    font-family: 'Sora', sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--text);
+  }
+
+  .sidebar-nav { padding: 1.2rem 0.9rem; flex: 1; }
+
+  .nav-section-label {
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    padding: 0.6rem 0.6rem 0.4rem;
+    margin-top: 0.6rem;
+  }
+  .nav-section-label:first-child { margin-top: 0; }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0.7rem 0.8rem;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.18s;
+    text-decoration: none;
+    margin-bottom: 2px;
+  }
+  .nav-item-icon { font-size: 16px; line-height: 1; }
+  .nav-item:hover { background: var(--card2); color: var(--text); }
+  .nav-item.active {
+    background: linear-gradient(135deg, rgba(168,85,247,0.18), rgba(236,72,153,0.1));
+    color: var(--text);
+    border: 1px solid rgba(168,85,247,0.3);
+  }
+
+  .sidebar-footer { padding: 1rem 0.9rem 1.4rem; border-top: 1px solid var(--border); }
+
+  .logout-btn {
+    width: 100%;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: 'Nunito', sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    padding: 0.7rem;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .logout-btn:hover { border-color: var(--red); color: var(--red); }
+
+  .main {
+    margin-left: 260px;
+    flex: 1;
+    min-width: 0;
+    padding: 0 2rem 4rem;
+  }
+
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding: 1.8rem 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 2rem;
+  }
+
+  .topbar-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--text);
+  }
+
+  .topbar-sub { font-size: 13px; color: var(--muted); font-weight: 600; margin-top: 2px; }
+
+  .topbar-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--green);
+    background: rgba(52,211,153,0.1);
+    border: 1px solid rgba(52,211,153,0.3);
+    padding: 6px 14px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  .status-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--green);
+    animation: pulse 2s infinite;
+  }
+
+  /* PANELS */
+  .panel { display: none; }
+  .panel.active { display: block; animation: fadeIn 0.35s ease; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.2rem;
+    margin-bottom: 2rem;
+  }
+
+  .stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 1.4rem 1.2rem;
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .card-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Sora', sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 1.2rem;
+  }
+  .card-title-icon { font-size: 18px; }
+
+  .info-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .info-row:last-child { border-bottom: none; }
+  .info-row-label { color: var(--muted); font-weight: 700; }
+  .info-row-value { color: var(--text); font-weight: 700; }
+
+  /* ADMIN FORM FIELDS */
+  .field { margin-bottom: 1.1rem; }
+  .field label {
+    display: block;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .field input, .field textarea, .field select {
+    width: 100%;
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 11px 14px;
+    color: var(--text);
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .field input:focus, .field textarea:focus, .field select:focus {
+    border-color: var(--purple);
+    box-shadow: 0 0 0 3px rgba(168,85,247,0.12);
+  }
+  .field textarea { resize: vertical; min-height: 70px; font-family: 'Nunito', sans-serif; }
+
+  .field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.1rem;
+    margin-bottom: 0;
+  }
+
+  .save-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--grad);
+    color: #fff;
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    padding: 0.8rem 1.6rem;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.22s;
+  }
+  .save-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(168,85,247,0.35); }
+
+  .add-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--card2);
+    border: 1px dashed rgba(168,85,247,0.4);
+    color: var(--purple);
+    font-family: 'Nunito', sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    padding: 0.7rem 1.2rem;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .add-btn:hover { background: rgba(168,85,247,0.1); border-color: var(--purple); }
+
+  .danger-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,82,82,0.1);
+    border: 1px solid rgba(255,82,82,0.35);
+    color: var(--red);
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    padding: 0.8rem 1.6rem;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.22s;
+  }
+  .danger-btn:hover { background: rgba(255,82,82,0.18); transform: translateY(-2px); }
+
+  .actions-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 0.5rem; }
+
+  /* REPEATABLE ROWS — Matières */
+  .subject-row {
+    display: grid;
+    grid-template-columns: 50px 1fr 1.6fr 160px 36px;
+    gap: 0.8rem;
+    align-items: center;
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 0.8rem;
+    margin-bottom: 0.7rem;
+  }
+  .subject-row input {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 9px 10px;
+    color: var(--text);
+    font-family: 'Nunito', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    outline: none;
+    width: 100%;
+    min-width: 0;
+  }
+  .subject-row input:focus { border-color: var(--purple); }
+
+  .range-wrap { display: flex; align-items: center; gap: 8px; }
+  .range-wrap input[type="range"] {
+    flex: 1;
+    accent-color: var(--purple);
+    cursor: pointer;
+    background: transparent;
+  }
+  .range-val {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--purple);
+    min-width: 36px;
+    text-align: right;
+  }
+
+  .del-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: rgba(255,82,82,0.1);
+    border: 1px solid rgba(255,82,82,0.3);
+    color: var(--red);
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.18s;
+    flex-shrink: 0;
+  }
+  .del-btn:hover { background: rgba(255,82,82,0.22); }
+
+  /* TIMELINE ROWS — Objectifs */
+  .timeline-row {
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.2rem;
+    margin-bottom: 0.9rem;
+  }
+  .timeline-row-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.9rem;
+  }
+  .timeline-row-year {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--purple);
+    letter-spacing: 0.05em;
+  }
+
+  /* TOAST */
+  #toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--grad);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 800;
+    padding: 14px 22px;
+    border-radius: 14px;
+    box-shadow: 0 12px 32px rgba(168,85,247,0.4);
+    transform: translateY(20px);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    z-index: 999;
+  }
+  #toast.show { transform: translateY(0); opacity: 1; }
+
+  /* RESPONSIVE — ADMIN APP */
+
+  /* Tablette */
+  @media (max-width: 1024px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .subject-row {
+      grid-template-columns: 44px 1fr 1fr auto;
+      grid-template-areas:
+        "icon name desc del"
+        "pct  pct  pct  pct";
+    }
+    .subject-row > input.s-icon { grid-area: icon; }
+    .subject-row > input.s-name { grid-area: name; }
+    .subject-row > input.s-desc { grid-area: desc; }
+    .subject-row > .del-btn { grid-area: del; }
+    .subject-row > div:nth-child(4) { grid-area: pct; }
+  }
+
+  /* Mobile : sidebar devient une barre du haut + nav repliable */
+  @media (max-width: 800px) {
+    .sidebar {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      height: auto;
+      min-height: 0;
+      max-height: 64px;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.6rem 1rem;
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+      overflow: visible;
+      z-index: 60;
+    }
+    .sidebar-brand { padding: 0; border-bottom: none; }
+    .sidebar-brand-top { display: none; }
+    .sidebar-brand-name { font-size: 14px; }
+    .sidebar-nav {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 0.4rem;
+      padding: 0;
+      overflow-x: auto;
+      flex: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    .nav-section-label { display: none; }
+    .nav-item {
+      flex-direction: column;
+      gap: 3px;
+      padding: 0.5rem 0.7rem;
+      font-size: 10px;
+      white-space: nowrap;
+      margin-bottom: 0;
+    }
+    .nav-item-icon { font-size: 17px; }
+    .sidebar-footer { padding: 0; border-top: none; }
+    .logout-btn { width: auto; padding: 0.5rem 0.8rem; font-size: 0; }
+    .logout-btn::before { content: '⏻'; font-size: 16px; }
+
+    .main { margin-left: 0 !important; padding: 0 1.2rem 3rem; }
+    #app { flex-direction: column; }
+
+    .topbar { padding: 1.2rem 0; }
+    .topbar-title { font-size: 1.3rem; }
+
+    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
+    .stat-card { padding: 1.1rem; }
+    .stat-num { font-size: 1.8rem; }
+
+    .field-row { grid-template-columns: 1fr; gap: 0; }
+    .card { padding: 1.3rem; }
+
+    .subject-row {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+    .subject-row .del-btn { justify-self: end; }
+
+    #toast { left: 16px; right: 16px; bottom: 16px; text-align: center; }
+  }
+
+  @media (max-width: 480px) {
+    .stats-grid { grid-template-columns: 1fr; }
+    .login-card { padding: 2rem 1.4rem; }
+  }
+
+  /* Respect des préférences de mouvement réduit */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+
+  /* Focus clavier visible partout dans l'admin */
+  #login-screen a:focus-visible,
+  #login-screen button:focus-visible,
+  #login-screen input:focus-visible,
+  #app a:focus-visible,
+  #app button:focus-visible,
+  #app input:focus-visible,
+  #app textarea:focus-visible,
+  #app select:focus-visible,
+  .nav-item:focus-visible {
+    outline: 2px solid var(--cyan);
+    outline-offset: 2px;
+  }
+ </style>
+</head>
+<body>
+
+<!-- ══ LOGIN SCREEN ══════════════════════════════════════ -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-head">
+      <div class="login-icon">🔒</div>
+      <h2 class="login-title">Connexion</h2>
+      <p class="login-sub">Accède au panneau d'administration</p>
+    </div>
+
+    <div class="login-form">
+      <div class="fg">
+        <label for="pw-input">Mot de passe</label>
+        <input type="password" id="pw-input" placeholder="••••••••" autocomplete="current-password">
+      </div>
+      <p id="login-err" class="login-err"></p>
+      <button type="button" class="btn-send" onclick="doLogin()">Se connecter</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ APP ════════════════════════════════════════════ -->
+<div id="app">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-brand">
+      <div class="sidebar-brand-top">// Admin Panel</div>
+      <div class="sidebar-brand-name">Mohamed Djafar</div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Général</div>
+      <div class="nav-item active" onclick="showPanel('dashboard', this)">
+        <span class="nav-item-icon">📊</span> Dashboard
+      </div>
+      <div class="nav-section-label">Contenu</div>
+      <div class="nav-item" onclick="showPanel('profil', this)">
+        <span class="nav-item-icon">👤</span> Profil
+      </div>
+      <div class="nav-item" onclick="showPanel('matieres', this)">
+        <span class="nav-item-icon">📚</span> Matières
+      </div>
+      <div class="nav-item" onclick="showPanel('loisirs', this)">
+        <span class="nav-item-icon">🎯</span> Loisirs
+      </div>
+      <div class="nav-item" onclick="showPanel('objectifs', this)">
+        <span class="nav-item-icon">🚀</span> Objectifs
+      </div>
+      <div class="nav-section-label">Système</div>
+      <div class="nav-item" onclick="showPanel('parametres', this)">
+        <span class="nav-item-icon">⚙️</span> Paramètres
+      </div>
+      <a href="index.html" class="nav-item" target="_blank">
+        <span class="nav-item-icon">🌐</span> Voir le site
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <button class="logout-btn" onclick="logout()">⏻ &nbsp;Déconnexion</button>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="topbar">
+      <div>
+        <div class="topbar-title" id="panel-title">Dashboard</div>
+        <div class="topbar-sub" id="panel-sub">Vue d'ensemble du portfolio</div>
+      </div>
+      <div class="topbar-status">
+        <div class="status-dot"></div>
+        Site actif
+      </div>
+    </div>
+
+    <!-- ── DASHBOARD ── -->
+    <div class="panel active" id="panel-dashboard">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-num" id="stat-matieres">6</div>
+          <div class="stat-label">Matières</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" id="stat-loisirs">8</div>
+          <div class="stat-label">Loisirs</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" id="stat-objectifs">4</div>
+          <div class="stat-label">Objectifs</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" id="stat-avg">77%</div>
+          <div class="stat-label">Moyenne matières</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="card-title-icon">ℹ️</span> Informations</div>
+        <div class="info-row">
+          <span class="info-row-label">Propriétaire</span>
+          <span class="info-row-value" id="info-owner">Mohamed Djafar Abdalla Sall</span>
+        </div>
+        <div class="info-row">
+          <span class="info-row-label">Classe</span>
+          <span class="info-row-value" id="info-class">Seconde S</span>
+        </div>
+        <div class="info-row">
+          <span class="info-row-label">Dernière modification</span>
+          <span class="info-row-value" id="info-lastmod">—</span>
+        </div>
+      </div>
+    </div><!-- /panel-dashboard -->
+
+    <!-- ── PROFIL ── -->
+    <div class="panel" id="panel-profil">
+      <div class="card">
+        <div class="card-title"><span class="card-title-icon">👤</span> Identité</div>
+        <div class="field-row">
+          <div class="field">
+            <label for="p-prenom">Prénom</label>
+            <input type="text" id="p-prenom" placeholder="Mohamed Djafar">
+          </div>
+          <div class="field">
+            <label for="p-nom">Nom</label>
+            <input type="text" id="p-nom" placeholder="Abdalla Sall">
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="p-age">Âge</label>
+            <input type="text" id="p-age" placeholder="16">
+          </div>
+          <div class="field">
+            <label for="p-classe">Classe</label>
+            <input type="text" id="p-classe" placeholder="Seconde S">
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="p-lycee">Lycée</label>
+            <input type="text" id="p-lycee" placeholder="Lycée Galandou Diouf">
+          </div>
+          <div class="field">
+            <label for="p-ville">Ville</label>
+            <input type="text" id="p-ville" placeholder="Dakar, Sénégal">
+          </div>
+        </div>
+        <div class="field">
+          <label for="p-email">Email</label>
+          <input type="email" id="p-email" placeholder="nom@exemple.com">
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="card-title-icon">📝</span> Présentation</div>
+        <div class="field">
+          <label for="p-tagline">Tagline</label>
+          <input type="text" id="p-tagline" placeholder="Futur ingénieur / informaticien">
+        </div>
+        <div class="field">
+          <label for="p-desc">Description courte</label>
+          <textarea id="p-desc" rows="2" placeholder="Élève passionné en Seconde S…"></textarea>
+        </div>
+        <div class="field">
+          <label for="p-bio">Biographie complète</label>
+          <textarea id="p-bio" rows="4" placeholder="Je m'appelle…"></textarea>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="card-title-icon">💬</span> Citation favorite</div>
+        <div class="field">
+          <label for="p-quote">Citation</label>
+          <textarea id="p-quote" rows="2" placeholder="L'éducation est l'arme la plus puissante…"></textarea>
+        </div>
+        <div class="field">
+          <label for="p-quote-author">Auteur</label>
+          <input type="text" id="p-quote-author" placeholder="Nelson Mandela">
+        </div>
+        <div class="actions-row">
+          <button class="save-btn" onclick="saveProfil()">💾 Enregistrer le profil</button>
+        </div>
+      </div>
+    </div><!-- /panel-profil -->
+
+    <!-- ── MATIÈRES ── -->
+    <div class="panel" id="panel-matieres">
+      <div class="card">
+        <div class="card-title"><span class="card-title-icon">📚</span> Liste des matières</div>
+        <div id="subject-list"></div>
+        <div class="actions-row">
+          <button class="add-btn" onclick="addSubject()">➕ Ajouter une matière</button>
+          <button class="save-btn" onclick="saveMatieres()">💾 Enregistrer les matières</button>
+        </div>
+      </div>
+    </div><!-- /panel-matieres -->
+
+    <!-- ── LOISIRS ── -->
+    <div class="panel" id="panel-loisirs">
+      <div class="card">
+        <div class="card-title"><span class="card-title-icon">🎯</span> Loisirs & passions</div>
+        <div id="hobby-list"></div>
+        <div class="actions-row">
+          <button class="add-btn" onclick="addHobby()">➕ Ajouter un loisir</button>
+          <button class="save-btn" onclick="saveHobbies()">💾 Enregistrer les loisirs</button>
+        </div>
+      </div>
+    </div><!-- /panel-loisirs -->
+
+    <!-- ── OBJECTIFS ── -->
+    <div class="panel" id="panel-objectifs">
+      <div class="card">
+        <div class="card-title"><span class="card-title-icon">🚀</span> Feuille de route</div>
+        <div id="timeline-list"></div>
+        <div class="actions-row">
+          <button class="add-btn" onclick="addObjectif()">➕ Ajouter un objectif</button>
+          <button class="save-btn" onclick="saveObjectifs()">💾 Enregistrer les objectifs</button>
+        </div>
+      </div>
+    </div><!-- /panel-objectifs -->
+
+    <!-- ── PARAMÈTRES ── -->
+    <div class="panel" id="panel-parametres">
+      <div class="card">
+        <div class="card-title"><span class="card-title-icon">🔑</span> Changer le mot de passe</div>
+        <div class="field">
+          <label for="pw-current">Mot de passe actuel</label>
+          <input type="password" id="pw-current" placeholder="••••••••" autocomplete="current-password">
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="pw-new">Nouveau mot de passe</label>
+            <input type="password" id="pw-new" placeholder="6 caractères min." autocomplete="new-password">
+          </div>
+          <div class="field">
+            <label for="pw-confirm">Confirmer</label>
+            <input type="password" id="pw-confirm" placeholder="••••••••" autocomplete="new-password">
+          </div>
+        </div>
+        <div class="actions-row">
+          <button class="save-btn" onclick="changePw()">🔒 Changer le mot de passe</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="card-title-icon">🗃️</span> Données</div>
+        <p style="font-size:14px;color:var(--text-muted);margin-bottom:1rem;">
+          Toutes les modifications sont stockées localement dans le navigateur (localStorage).
+          Tu peux exporter ou réinitialiser les données ici.
+        </p>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+          <button class="save-btn" onclick="exportData()">📥 Exporter (JSON)</button>
+          <button class="danger-btn" onclick="resetData()">♻️ Réinitialiser</button>
+        </div>
+      </div>
+    </div><!-- /panel-parametres -->
+
+  </div><!-- /main -->
+</div><!-- /app -->
+
+<div id="toast">✓ Sauvegardé</div>
+
+<script>
+/* ════════════════════════════════════
+   DEFAULT DATA
+═══════════════════════════════════════ */
+const DEFAULTS = {
+  profil: {
+    prenom: 'Mohamed Djafar',
+    nom: 'Abdalla Sall',
+    age: '16',
+    classe: 'Seconde S',
+    lycee: 'Lycée Galandou Diouf',
+    ville: 'Dakar, Sénégal',
+    email: 'sallmohamedadjafarabdalla@gmail.com',
+    tagline: 'Futur ingénieur / informaticien',
+    desc: 'Élève passionné en Seconde S, curieux des sciences, des mathématiques et des nouvelles technologies.',
+    bio: "Je m'appelle Mohamed Djafar Abdalla Sall, j'ai 16 ans et je suis élève en classe de Seconde S au Lycée Galandou Diouf de Dakar. Passionné par les sciences, les mathématiques et les nouvelles technologies, je m'investis chaque jour dans mes études pour atteindre mes ambitions.",
+    quote: "L'éducation est l'arme la plus puissante que vous pouvez utiliser pour changer le monde.",
+    quoteAuthor: 'Nelson Mandela'
+  },
+  matieres: [
+    { icon: '➗', name: 'Mathématiques', desc: 'Algèbre, géométrie, fonctions et trigonométrie. Ma matière préférée !', pct: 90 },
+    { icon: '⚗️', name: 'Physique-Chimie', desc: 'Mécanique, électricité, réactions chimiques et laboratoire.', pct: 80 },
+    { icon: '🧬', name: 'S.V.T', desc: 'Biologie, géologie, écosystèmes et cellules vivantes.', pct: 75 },
+    { icon: '📖', name: 'Français', desc: 'Littérature classique et contemporaine, dissertation et commentaires.', pct: 70 },
+    { icon: '🌍', name: 'Histoire-Géographie', desc: 'Histoire du monde et de l\'Afrique, géopolitique et géographie humaine.', pct: 72 },
+    { icon: '🗣️', name: 'Anglais', desc: 'Expression orale, compréhension écrite et culture anglophone mondiale.', pct: 68 }
+  ],
+  loisirs: [
+    { icon: '🏀', name: 'Basket-ball', desc: 'Travail d\'équipe et persévérance sur le terrain.' },
+    { icon: '💻', name: 'Informatique', desc: 'Code, tech et exploration numérique.' },
+    { icon: '📚', name: 'Lecture', desc: 'Romans, sciences et biographies.' },
+    { icon: '🎵', name: 'Musique', desc: 'Mbalax, afrobeat, hip-hop Galsen.' },
+    { icon: '🎨', name: 'Dessin', desc: 'Créativité et expression artistique.' },
+    { icon: '🌐', name: 'Géopolitique', desc: 'Comprendre le monde d\'aujourd\'hui.' },
+    { icon: '🏃', name: 'Sport & Santé', desc: 'Course, fitness et bien-être.' },
+    { icon: '🔭', name: 'Astronomie', desc: 'Observer l\'univers, rêver grand.' }
+  ],
+  objectifs: [
+    { year: '2025', title: 'Réussir brillamment ma Seconde S', desc: 'Obtenir d\'excellentes notes dans toutes les matières scientifiques, en particulier les mathématiques et la physique-chimie, pour passer en Première S.' },
+    { year: '2026', title: 'Préparer et réussir le Baccalauréat S', desc: 'Décrocher le baccalauréat scientifique avec mention — aboutissement de trois ans d\'efforts et de travail acharné.' },
+    { year: '2027', title: 'Intégrer une grande école ou université', desc: 'Postuler à des formations d\'excellence — UCAD, ESP, ou à l\'international — dans les domaines de l\'ingénierie, de l\'informatique ou des sciences.' },
+    { year: '2030+', title: 'Contribuer au développement de l\'Afrique', desc: 'Mettre mes compétences au service de l\'innovation africaine, créer des solutions qui améliorent la vie des populations et participer à l\'émergence du Sénégal.' }
+  ]
+};
+
+const DEFAULT_PW = 'admin123';
+
+/* ════════════════════════════════════
+   STORAGE HELPERS
+═══════════════════════════════════════ */
+const get = (k, def) => { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : def; } catch(e) { return def; } };
+const set = (k, v) => localStorage.setItem(k, JSON.stringify(v));
+
+/* ════════════════════════════════════
+   AUTH
+═══════════════════════════════════════ */
+function doLogin() {
+  const pw = document.getElementById('pw-input').value;
+  const stored = localStorage.getItem('admin_pw') || DEFAULT_PW;
+  if(pw === stored) {
+    localStorage.setItem('admin_session', '1');
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'flex';
+    initApp();
+  } else {
+    document.getElementById('login-err').textContent = '✗ Mot de passe incorrect';
+    document.getElementById('pw-input').style.borderColor = '#ff5252';
+  }
+}
+
+document.getElementById('pw-input').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
+
+function logout() {
+  localStorage.removeItem('admin_session');
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('pw-input').value = '';
+  document.getElementById('login-err').textContent = '';
+}
+
+// Auto-login if session exists
+if(localStorage.getItem('admin_session') === '1') {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('app').style.display = 'flex';
+  setTimeout(initApp, 0);
+}
+
+/* ════════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════════ */
+const panelMeta = {
+  dashboard: ['Dashboard', 'Vue d\'ensemble du portfolio'],
+  profil: ['Profil', 'Modifier les informations personnelles'],
+  matieres: ['Matières', 'Gérer les matières scolaires'],
+  loisirs: ['Loisirs & Passions', 'Gérer les activités et centres d\'intérêt'],
+  objectifs: ['Objectifs', 'Gérer la feuille de route'],
+  parametres: ['Paramètres', 'Configuration et sécurité']
+};
+
+function showPanel(id, el) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  if(el) el.classList.add('active');
+  const meta = panelMeta[id] || [id, ''];
+  document.getElementById('panel-title').textContent = meta[0];
+  document.getElementById('panel-sub').textContent = meta[1];
+}
+
+/* ════════════════════════════════════
+   INIT
+═══════════════════════════════════════ */
+function initApp() {
+  loadProfil();
+  loadMatieres();
+  loadHobbies();
+  loadObjectifs();
+  updateDashboard();
+  const lm = localStorage.getItem('admin_lastmod');
+  if(lm) document.getElementById('info-lastmod').textContent = lm;
+}
+
+function updateDashboard() {
+  const matieres = get('portfolio_matieres', DEFAULTS.matieres);
+  const loisirs = get('portfolio_loisirs', DEFAULTS.loisirs);
+  const objectifs = get('portfolio_objectifs', DEFAULTS.objectifs);
+  const avg = matieres.reduce((s,m) => s + m.pct, 0) / matieres.length;
+  document.getElementById('stat-matieres').textContent = matieres.length;
+  document.getElementById('stat-loisirs').textContent = loisirs.length;
+  document.getElementById('stat-objectifs').textContent = objectifs.length;
+  document.getElementById('stat-avg').textContent = Math.round(avg) + '%';
+  const p = get('portfolio_profil', DEFAULTS.profil);
+  document.getElementById('info-owner').textContent = p.prenom + ' ' + p.nom;
+  document.getElementById('info-class').textContent = p.classe;
+}
+
+/* ════════════════════════════════════
+   PROFIL
+═══════════════════════════════════════ */
+function loadProfil() {
+  const p = get('portfolio_profil', DEFAULTS.profil);
+  document.getElementById('p-prenom').value = p.prenom || '';
+  document.getElementById('p-nom').value = p.nom || '';
+  document.getElementById('p-age').value = p.age || '';
+  document.getElementById('p-classe').value = p.classe || '';
+  document.getElementById('p-lycee').value = p.lycee || '';
+  document.getElementById('p-ville').value = p.ville || '';
+  document.getElementById('p-email').value = p.email || '';
+  document.getElementById('p-tagline').value = p.tagline || '';
+  document.getElementById('p-desc').value = p.desc || '';
+  document.getElementById('p-bio').value = p.bio || '';
+  document.getElementById('p-quote').value = p.quote || '';
+  document.getElementById('p-quote-author').value = p.quoteAuthor || '';
+}
+
+function saveProfil() {
+  const p = {
+    prenom: document.getElementById('p-prenom').value,
+    nom: document.getElementById('p-nom').value,
+    age: document.getElementById('p-age').value,
+    classe: document.getElementById('p-classe').value,
+    lycee: document.getElementById('p-lycee').value,
+    ville: document.getElementById('p-ville').value,
+    email: document.getElementById('p-email').value,
+    tagline: document.getElementById('p-tagline').value,
+    desc: document.getElementById('p-desc').value,
+    bio: document.getElementById('p-bio').value,
+    quote: document.getElementById('p-quote').value,
+    quoteAuthor: document.getElementById('p-quote-author').value
+  };
+  set('portfolio_profil', p);
+  stamp(); toast('Profil sauvegardé !'); updateDashboard();
+}
+
+/* ════════════════════════════════════
+   MATIÈRES
+═══════════════════════════════════════ */
+function loadMatieres() {
+  const matieres = get('portfolio_matieres', DEFAULTS.matieres);
+  const list = document.getElementById('subject-list');
+  list.innerHTML = '';
+  matieres.forEach((m, i) => list.appendChild(subjectRow(m, i)));
+}
+
+function subjectRow(m, i) {
+  const row = document.createElement('div');
+  row.className = 'subject-row';
+  row.dataset.index = i;
+  row.innerHTML = `
+    <input type="text" value="${m.icon}" placeholder="➗" style="text-align:center;font-size:18px;" class="s-icon" />
+    <input type="text" value="${m.name}" placeholder="Matière…" class="s-name" />
+    <input type="text" value="${m.desc}" placeholder="Description…" class="s-desc" />
+    <div>
+      <div class="range-wrap">
+        <input type="range" min="0" max="100" step="1" value="${m.pct}" class="s-pct" oninput="this.nextElementSibling.textContent=this.value+'%'" />
+        <span class="range-val">${m.pct}%</span>
+      </div>
+    </div>
+    <button class="del-btn" onclick="this.closest('.subject-row').remove()" title="Supprimer">✕</button>
+  `;
+  return row;
+}
+
+function addSubject() {
+  const list = document.getElementById('subject-list');
+  const i = list.children.length;
+  list.appendChild(subjectRow({ icon: '📘', name: '', desc: '', pct: 70 }, i));
+}
+
+function saveMatieres() {
+  const rows = document.querySelectorAll('#subject-list .subject-row');
+  const matieres = Array.from(rows).map(r => ({
+    icon: r.querySelector('.s-icon').value,
+    name: r.querySelector('.s-name').value,
+    desc: r.querySelector('.s-desc').value,
+    pct: parseInt(r.querySelector('.s-pct').value)
+  }));
+  set('portfolio_matieres', matieres);
+  stamp(); toast('Matières sauvegardées !'); updateDashboard();
+}
+
+/* ════════════════════════════════════
+   LOISIRS
+═══════════════════════════════════════ */
+function loadHobbies() {
+  const loisirs = get('portfolio_loisirs', DEFAULTS.loisirs);
+  const list = document.getElementById('hobby-list');
+  list.innerHTML = '';
+  loisirs.forEach((h, i) => list.appendChild(hobbyRow(h, i)));
+}
+
+function hobbyRow(h, i) {
+  const row = document.createElement('div');
+  row.className = 'subject-row';
+  row.style.gridTemplateColumns = '60px 1fr 1fr 36px';
+  row.dataset.index = i;
+  row.innerHTML = `
+    <input type="text" value="${h.icon}" placeholder="🏀" style="text-align:center;font-size:18px;" class="h-icon" />
+    <input type="text" value="${h.name}" placeholder="Nom du loisir…" class="h-name" />
+    <input type="text" value="${h.desc}" placeholder="Description…" class="h-desc" />
+    <button class="del-btn" onclick="this.closest('.subject-row').remove()" title="Supprimer">✕</button>
+  `;
+  return row;
+}
+
+function addHobby() {
+  const list = document.getElementById('hobby-list');
+  list.appendChild(hobbyRow({ icon: '🌟', name: '', desc: '' }, list.children.length));
+}
+
+function saveHobbies() {
+  const rows = document.querySelectorAll('#hobby-list .subject-row');
+  const loisirs = Array.from(rows).map(r => ({
+    icon: r.querySelector('.h-icon').value,
+    name: r.querySelector('.h-name').value,
+    desc: r.querySelector('.h-desc').value
+  }));
+  set('portfolio_loisirs', loisirs);
+  stamp(); toast('Loisirs sauvegardés !'); updateDashboard();
+}
+
+/* ════════════════════════════════════
+   OBJECTIFS
+═══════════════════════════════════════ */
+function loadObjectifs() {
+  const objectifs = get('portfolio_objectifs', DEFAULTS.objectifs);
+  const list = document.getElementById('timeline-list');
+  list.innerHTML = '';
+  objectifs.forEach((o, i) => list.appendChild(objectifRow(o, i)));
+}
+
+function objectifRow(o, i) {
+  const div = document.createElement('div');
+  div.className = 'timeline-row';
+  div.dataset.index = i;
+  div.innerHTML = `
+    <div class="timeline-row-header">
+      <span class="timeline-row-year">// Objectif ${i+1}</span>
+      <button class="del-btn" onclick="this.closest('.timeline-row').remove()" title="Supprimer">✕</button>
+    </div>
+    <div class="field-row" style="margin-bottom:0.8rem;">
+      <div class="field" style="margin:0;">
+        <label>Année / Période</label>
+        <input type="text" value="${o.year}" placeholder="2025" class="o-year" />
+      </div>
+      <div class="field" style="margin:0;">
+        <label>Titre</label>
+        <input type="text" value="${o.title}" placeholder="Mon objectif…" class="o-title" />
+      </div>
+    </div>
+    <div class="field" style="margin:0;">
+      <label>Description</label>
+      <textarea class="o-desc" rows="2" placeholder="Détails de l'objectif…">${o.desc}</textarea>
+    </div>
+  `;
+  return div;
+}
+
+function addObjectif() {
+  const list = document.getElementById('timeline-list');
+  list.appendChild(objectifRow({ year: '2025', title: '', desc: '' }, list.children.length));
+}
+
+function saveObjectifs() {
+  const rows = document.querySelectorAll('#timeline-list .timeline-row');
+  const objectifs = Array.from(rows).map(r => ({
+    year: r.querySelector('.o-year').value,
+    title: r.querySelector('.o-title').value,
+    desc: r.querySelector('.o-desc').value
+  }));
+  set('portfolio_objectifs', objectifs);
+  stamp(); toast('Objectifs sauvegardés !'); updateDashboard();
+}
+
+/* ════════════════════════════════════
+   PARAMÈTRES
+═══════════════════════════════════════ */
+function changePw() {
+  const cur = document.getElementById('pw-current').value;
+  const nw = document.getElementById('pw-new').value;
+  const conf = document.getElementById('pw-confirm').value;
+  const stored = localStorage.getItem('admin_pw') || DEFAULT_PW;
+  if(cur !== stored) { alert('Mot de passe actuel incorrect.'); return; }
+  if(nw.length < 6) { alert('Le nouveau mot de passe doit faire au moins 6 caractères.'); return; }
+  if(nw !== conf) { alert('Les mots de passe ne correspondent pas.'); return; }
+  localStorage.setItem('admin_pw', nw);
+  document.getElementById('pw-current').value = '';
+  document.getElementById('pw-new').value = '';
+  document.getElementById('pw-confirm').value = '';
+  toast('Mot de passe changé !');
+}
+
+function exportData() {
+  const data = {
+    profil: get('portfolio_profil', DEFAULTS.profil),
+    matieres: get('portfolio_matieres', DEFAULTS.matieres),
+    loisirs: get('portfolio_loisirs', DEFAULTS.loisirs),
+    objectifs: get('portfolio_objectifs', DEFAULTS.objectifs),
+    exported: new Date().toISOString()
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'portfolio-data.json';
+  a.click();
+}
+
+function resetData() {
+  if(!confirm('Réinitialiser toutes les données ? Cette action est irréversible.')) return;
+  ['portfolio_profil','portfolio_matieres','portfolio_loisirs','portfolio_objectifs'].forEach(k => localStorage.removeItem(k));
+  initApp();
+  toast('Données réinitialisées');
+}
+
+/* ════════════════════════════════════
+   UTILS
+═══════════════════════════════════════ */
+function stamp() {
+  const now = new Date().toLocaleDateString('fr-FR', { day:'2-digit', month:'long', year:'numeric', hour:'2-digit', minute:'2-digit' });
+  localStorage.setItem('admin_lastmod', now);
+  document.getElementById('info-lastmod').textContent = now;
+}
+
+let toastTimer;
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = '✓ ' + msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 2500);
+}
+</script>
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyAiZmgePv5HHGFgSAjdPKvdM1xvks8loJc",
+    authDomain: "mon-portfolio-6d103.firebaseapp.com",
+    projectId: "mon-portfolio-6d103",
+    storageBucket: "mon-portfolio-6d103.firebasestorage.app",
+    messagingSenderId: "92999663143",
+    appId: "1:92999663143:web:8bb87909f1f81425eb5802",
+    measurementId: "G-X6TLBX9LXG"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
+</body>
+</html>
