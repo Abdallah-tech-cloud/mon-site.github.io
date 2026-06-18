@@ -524,25 +524,223 @@
     .form-row { grid-template-columns: 1fr; }
     h1 { font-size: 2.4rem; }
   }
+  /* LOGIN */
+#login {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7rem 2rem 4rem;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 2.5rem 2.2rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+}
+
+.login-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--grad);
+}
+
+.login-head {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.login-icon {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 1.2rem;
+  border-radius: 16px;
+  background: var(--grad);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  box-shadow: 0 8px 24px rgba(168,85,247,0.3);
+}
+
+.login-title {
+  font-family: 'Sora', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 0.4rem;
+  letter-spacing: -0.02em;
+}
+
+.login-sub {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.login-form .fg input {
+  width: 100%;
+  padding: 12px 16px;
+}
+
+.login-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: -0.3rem;
+}
+
+.remember {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.remember input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--purple);
+  cursor: pointer;
+}
+
+.forgot-link {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--purple);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.forgot-link:hover { color: var(--pink); }
+
+.login-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 1.6rem 0 1.2rem;
+}
+
+.login-divider::before,
+.login-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.login-divider span {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.social-row {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.btn-social {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px;
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-social:hover {
+  border-color: rgba(168,85,247,0.4);
+  transform: translateY(-2px);
+}
+
+.login-footer {
+  text-align: center;
+  margin-top: 1.8rem;
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.login-footer a {
+  color: var(--cyan);
+  font-weight: 800;
+  text-decoration: none;
+}
+.login-footer a:hover { color: var(--pink); }
+
+@media (max-width: 700px) {
+  .login-card { padding: 2rem 1.5rem; }
+  }
   </style>
 
 </head>
 <body>
 
 <!-- ══ LOGIN ══════════════════════════════════════════ -->
-<div id="login-screen">
-  <div class="login-box">
-    <div class="login-logo">// Admin Panel</div>
-    <div class="login-title">Accès sécurisé</div>
-    <div class="login-field">
-      <label>Mot de passe</label>
-      <input type="password" id="pw-input" placeholder="••••••••" />
+<section id="login">
+  <div class="login-card reveal on">
+    <div class="login-head">
+      <div class="login-icon">🔒</div>
+      <h2 class="login-title">Connexion</h2>
+      <p class="login-sub">Accédez à votre espace personnel</p>
     </div>
-    <button class="login-btn" onclick="doLogin()">→ Connexion</button>
-    <div class="login-err" id="login-err"></div>
-    <a href="index.html" class="login-back">← Retour au portfolio</a>
+
+    <form class="login-form">
+      <div class="fg">
+        <label>Email</label>
+        <input type="email" placeholder="vous@exemple.com" required>
+      </div>
+      <div class="fg">
+        <label>Mot de passe</label>
+        <input type="password" placeholder="••••••••" required>
+      </div>
+
+      <div class="login-options">
+        <label class="remember">
+          <input type="checkbox"> Se souvenir de moi
+        </label>
+        <a href="#" class="forgot-link">Mot de passe oublié ?</a>
+      </div>
+
+      <button type="submit" class="btn-send">Se connecter</button>
+    </form>
+
+    <div class="login-divider"><span>ou</span></div>
+
+    <div class="social-row">
+      <button class="btn-social">Google</button>
+      <button class="btn-social">GitHub</button>
+    </div>
+
+    <p class="login-footer">Pas encore de compte ? <a href="#">Créer un compte</a></p>
   </div>
-</div>
+</section>
 
 <!-- ══ APP ════════════════════════════════════════════ -->
 <div id="app">
